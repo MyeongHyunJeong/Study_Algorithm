@@ -1,0 +1,81 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+
+public class Main1938 {
+
+	public static int n;
+	public static char[][] map;
+	public static Node start;
+	public static Node end;
+	
+	public static void main(String[] args) throws Exception{
+		System.setIn(new FileInputStream("input1938.txt"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		n = Integer.parseInt(br.readLine());
+		map = new char[n][n];
+		for(int i=0; i<n; i++) {
+			map[i] = br.readLine().toCharArray();
+		}
+		
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<n; j++) {
+				if(map[i][j]=='B' || map[i][j]=='E') {
+					findSE(i, j);
+				}
+			}
+		}
+		
+		System.out.println("START - X : " + start.x + " Y: " + start.y + " Direct : " + start.d);
+		System.out.println("END - X : " + end.x + " Y: " + end.y + " Direct : " + end.d);
+	
+	}
+	
+	public static void findSE(int i, int j) {
+		int nx, ny, px, py;
+		nx = i+1;
+		ny = j;
+		px = i-1;
+		py = j;
+		if(nx>-1 && px>-1 &&  ny>-1 && py>-1 && nx<n && ny<n && px<n && py<n) {
+			if(map[i][j]=='B') {
+				if(map[px][py]=='B' && map[nx][ny]=='B') {
+					start = new Node(i, j, 'S');
+				}
+			}else {
+				if(map[px][py]=='E' && map[nx][ny]=='E') {
+					end = new Node(i, j, 'S');
+				}
+			}
+		}
+		nx = i;
+		ny = j+1;
+		px = i;
+		py = j-1;
+		if(nx>-1 && px>-1 &&  ny>-1 && py>-1 && nx<n && ny<n && px<n && py<n) {
+			if(map[i][j]=='B') {
+				if(map[px][py]=='B' && map[nx][ny]=='B') {
+					start = new Node(i, j, 'G');
+				}
+			}else {
+				if(map[px][py]=='E' && map[nx][ny]=='E') {
+					end = new Node(i, j, 'G');
+				}
+			}
+		}
+		
+	}
+	
+	public static class Node {
+		int x;
+		int y;
+		char d;
+		public Node(int x, int y, char d) {
+			this.x = x;
+			this.y = y;
+			this.d = d;
+		}
+	}
+
+}
