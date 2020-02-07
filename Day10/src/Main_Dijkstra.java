@@ -7,6 +7,7 @@ public class Main_Dijkstra {
 	public static int[] distance;
 	public static boolean[] check;
 	public static int start;
+	public static String[] path;
 	
 	public static void main(String[] args) {
 		n = 8;
@@ -24,6 +25,9 @@ public class Main_Dijkstra {
 		makeMap(6,5,3);
 		makeMap(2,7,3);
 		makeMap(5,7,2);
+		
+		//path 초기화
+		path = new String[n];
 		
 		//distance 초기화
 		distance = new int[n];
@@ -46,22 +50,43 @@ public class Main_Dijkstra {
 		for(int i=1; i<n; i++) {
 			if(map[start][i]!=0 && !check[i]) {
 				distance[i] = map[start][i];
+				path[i] = ""+start+" " + i;
 			}
+		}
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<n; j++) {
+				System.out.print(map[i][j] + " ");
+			}System.out.println();
 		}
 		System.out.println(Arrays.toString(distance));
 		
-		//각 노드를 돌면서 최단거리 저장 및 노드 방문 체크
-		for(int i=1; i<n-1; i++) {
-			for(int j=i; j<n; j++) {
-				if(map[i][j]!=0 && !check[j]) {
-					if(distance[i]+map[i][j]<distance[j]) {
-						distance[j] = distance[i]+map[i][j];
-					}
+		//start 노드를 제외한 각 노드를 다 돌아야하기 때문에 1-n까지 반복
+		for(int l=1; l<n; l++) {
+			int min = Integer.MAX_VALUE;
+			int min_idx = -1;
+			
+			//start 노드에서 각 노드까지의 거리값중 최소값을 가진 노드를 선택
+			for(int i=0; i<n; i++) {
+				if(!check[i] && distance[i]<min) {
+					min = distance[i];
+					min_idx = i;
 				}
 			}
-			check[i] = true;
+			
+			//최소값을 가진 노드를 방문
+			System.out.println("min_idx : " + min_idx);
+			check[min_idx] = true;
+			
+			//최소값을 가진 노드와 연결된 노드까지의 거리값을 최신화 -> distance에 저장
+			for(int i=0; i<n; i++) {
+				if(!check[i] && map[min_idx][i]!=0 && distance[min_idx]+map[min_idx][i] < distance[i]) {
+					distance[i] = distance[min_idx]+map[min_idx][i];
+					path[i] = path[min_idx] + " " + i;
+				}
+			}
+			System.out.println(Arrays.toString(distance));
+			System.out.println(Arrays.toString(path));
 		}
-		
 		//결과 출력
 		System.out.println(Arrays.toString(distance));
 	}

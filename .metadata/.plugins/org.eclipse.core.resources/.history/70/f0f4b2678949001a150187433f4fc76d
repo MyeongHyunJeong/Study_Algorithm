@@ -1,0 +1,16 @@
+
+public class Main_Dijkstra_Target {
+	
+	public static int n;
+	public static int[][] map;
+
+	public static void main(String[] args) {
+		n = 8;
+		map = new int[n][n];
+	}
+	
+	public static void makeMap(int i, int j, int d) {
+		map[i][j] = d;
+	}
+
+}
