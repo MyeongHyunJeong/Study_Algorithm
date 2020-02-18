@@ -1,0 +1,17 @@
+NUM 0
+DIV
+END
+3
+1
+-10
+50
+
+NUM -3
+MOD
+END
+3
+-1
+10
+50
+
+QUIT
