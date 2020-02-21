@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
@@ -12,7 +13,7 @@ public class Main1726 {
 	public static int[][] map;
 	public static Node start;
 	public static Node target;
-	public static boolean[][] chk;
+	public static boolean[][][] chk;
 	public static int[][] dir = {{0,-1},{0,1},{1,0},{-1,0}};
 	public static int min = Integer.MAX_VALUE;
 
@@ -28,7 +29,7 @@ public class Main1726 {
 		for(int i=0; i<n; i++) {
 			st = new StringTokenizer(br.readLine());
 			for(int j=0; j<m; j++) {
-				map[i][j] = Integer.parseInt(st.nextToken());
+				map[i][j] = -Integer.parseInt(st.nextToken());
 			}
 		}
 		int x,y,d;
@@ -45,8 +46,7 @@ public class Main1726 {
 		}
 		
 //		printMap();
-		
-		chk = new boolean[n][m];
+		chk = new boolean[n][m][4];
 		go();
 		
 		System.out.println(min);
@@ -56,7 +56,7 @@ public class Main1726 {
 	public static void go() {
 		Queue<Node> q = new LinkedList<Node>();
 		q.add(start);
-		chk[start.x][start.y] = true; 
+		chk[start.x][start.y][start.d] = true; 
 		
 		Node poll;
 		int x,y,d,c,t;
@@ -78,7 +78,7 @@ public class Main1726 {
 				ny = y + dir[k][1];
 				nc = c;
 				nt = t;
-				if(nx>-1 && ny>-1 && nx<n && ny<m && map[nx][ny]==0 && !chk[nx][ny]) {
+				if(nx>-1 && ny>-1 && nx<n && ny<m && map[nx][ny]!=-1 && !chk[nx][ny][k]) {
 					nd = k;	// 다음 방향
 					// 회전에 대한 명령어 수행 추가
 					if(k==0) {	// 동쪽으로 이동
@@ -167,17 +167,26 @@ public class Main1726 {
 
 						if(nc<min) {
 							min = nc;
+							map[nx][ny] = nc;
 						}
 						continue;
 					}
 					
-					map[nx][ny] = nc;
-					q.add(new Node(nx, ny, nd, nc, nt));
-					chk[nx][ny] = true;
+					if(map[nx][ny]==0 && !(nx==start.x && ny==start.y)) {
+						map[nx][ny] = nc;
+						q.add(new Node(nx, ny, nd, nc, nt));
+						chk[nx][ny][nd] = true;
+					}else {
+						if(map[nx][ny]>nc) {
+							map[nx][ny] = nc;
+							q.add(new Node(nx, ny, nd, nc, nt));
+						}
+						chk[nx][ny][nd] = true;
+					}
 				}
 				
 			}
-//			printMap();
+			printMap();
 		}
 	}
 	
@@ -186,7 +195,7 @@ public class Main1726 {
 	public static void printMap() {
 		for(int i=0; i<n; i++) {
 			for(int j=0; j<m; j++) {
-				System.out.print(map[i][j] + "  ");
+				System.out.print(map[i][j] + " \t");
 			}System.out.println();
 		}System.out.println();
 	}
