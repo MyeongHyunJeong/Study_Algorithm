@@ -19,6 +19,7 @@ public class Main16137 {
 	public static boolean ga;
 	public static boolean[][] chk;
 	public static int result = Integer.MAX_VALUE;
+	public static int[][] cdepth;
 
 	public static void main(String[] args) throws Exception{
 		System.setIn(new FileInputStream("input16137.txt"));
@@ -44,31 +45,20 @@ public class Main16137 {
 				if(map[i][j]==1) {
 					makeMap(i,j);
 				}
-				if(map[i][j]==0) {
-					chkjulbyuk(i,j);
-				}
 			}
 		}
-		int nx, ny;
-		int num;
-		for(int i=0; i<n; i++) {
-			for(int j=0; j<n; j++) {
-				if(map[i][j]==m) {
-					for(int k=0; k<4; k++) {
-						nx = i + dir[k][0];
-						ny = j + dir[k][1];
-						if(nx>-1 && ny>-1 && nx<n && ny<n && map[nx][ny]>20) {
-							num = map[nx][ny];
-						}
-					}
-				}
-			}
-		}
-		printMap();
+//		printMap();
 		
 		chk = new boolean[n][n];
+		cdepth = new int[n][n];
 		go();
-		
+//		printMap();
+//		printChk();
+//		for(int i=0; i<n; i++) {
+//			for(int j=0; j<n; j++) {
+//				System.out.print(cdepth[i][j] + "\t");
+//			}System.out.println();
+//		}System.out.println();
 		System.out.println(result);
 		
 		br.close();
@@ -81,23 +71,35 @@ public class Main16137 {
 		
 		Node poll;
 		int x,y,depth,nx,ny;
+		int nnx, nny;
 		boolean chkjul = false;
 		while(!q.isEmpty()){
 			poll = q.poll();
 			x = poll.x;
 			y = poll.y;
 			depth = poll.depth;
+			cdepth[x][y] = depth;
 			if(x==n-1 && y==n-1) {
 				if(depth<result) {
 					result = depth;
 				}
+				return;
 			}
 			for(int k=0; k<4; k++) {
 				nx = x + dir[k][0];
 				ny = y + dir[k][1];
 				if(nx>-1 && ny>-1 && nx<n && ny<n && !chk[nx][ny]) {
-					if(map[nx][ny]!=0 && map[nx][ny]<=20) {	//절벽인지 체크
-						chkjul = true;
+					if(map[nx][ny]<21) {		//다음이 절벽일 경우
+						nnx = nx + dir[k][0];
+						nny = ny + dir[k][1];
+						if(map[nx][ny]==0) {	
+							if(nnx>-1 && nny>-1 && nnx<n && nny<n && map[nnx][nny]>20 && map[nnx][nny]!=map[x][y]) {
+								chkjul = true;
+								map[nx][ny] = m;
+							}else {
+								continue;
+							}
+						}
 						if((depth+1)%map[nx][ny]==0) {
 							q.add(new Node(nx,ny,depth+1));
 							chk[nx][ny] = true;
@@ -139,41 +141,13 @@ public class Main16137 {
 		}
 		numbering++;
 	}
-	
-	public static void chkjulbyuk(int i, int j) {
-		Queue<Node> q = new LinkedList<Node>();
-		q.add(new Node(i, j, 0));
-		makeMap[i][j] = true;
-		map[i][j] = m;
-	
-		
-		Node poll;
-		int x,y,nx,ny;
-		while(!q.isEmpty()) {
-			poll = q.poll();
-			x = poll.x;
-			y = poll.y;
-			for(int k=0; k<4; k++) {
-				nx = x + dir[k][0];
-				ny = y + dir[k][1];
-				if(nx>-1 && ny>-1 && nx<n && ny<n && map[nx][ny]==0 && !makeMap[nx][ny]) {
-					makeMap[nx][ny] = true;
-					q.add(new Node(nx,ny,0));
-				}
-				if(nx>-1 && ny>-1 && nx<n && ny<n && map[nx][ny]!=1 && map[nx][ny]<=20) {
-					if(k==0 || k==1) {
-						se = true;
-					}else {
-						ga = true;
-					}
-				}
-			}
-			if(ga && se) {
-				map[x][y] = 0;
-			}
-			ga = false;
-			se = false;
-		}
+
+	public static void printChk() {
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<n; j++) {
+				System.out.print(chk[i][j] + "\t");
+			}System.out.println();
+		}System.out.println();
 	}
 
 	public static void printMap() {
