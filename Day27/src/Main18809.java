@@ -63,7 +63,8 @@ public class Main18809 {
 	
 	public static void selectGround(int n, int r, int idx, int depth) {
 		if(idx==r) {
-			System.out.println(Arrays.toString(select));
+//			System.out.println("SELECT");
+//			System.out.println(Arrays.toString(select));
 			green = new int[g];
 			selectGreen(r, g, 0, 0);
 			return;
@@ -76,19 +77,13 @@ public class Main18809 {
 	
 	public static void selectGreen(int n, int r, int idx, int depth) {
 		if(idx==r) {
-			System.out.println("GREEN");
-			System.out.println(Arrays.toString(green));
+//			System.out.println("GREEN");
+//			System.out.println(Arrays.toString(green));
 			getResult();
-			
-			for(int i=0; i<n; i++) {
-				for(int j=0; j<m; j++) {
-					System.out.print(copyMap[i][j] + " ");
-				}System.out.println();
-			}System.out.println();
 			return;
 		}
 		if(depth==n) return;
-		green[idx] = depth;
+		green[idx] = select[depth];
 		selectGreen(n,r,idx+1,depth+1);
 		selectGreen(n,r,idx,depth+1);
 	}
@@ -114,15 +109,16 @@ public class Main18809 {
 			y = ground[select[i]].y;
 			if(copyMap[x][y]!=7) {
 				copyMap[x][y] = 8;
+				q.add(new Node(x,y,'R',0));
+				chk[x][y] = 0;
+//				System.out.print(select[i] + " ");
 			}
-			q.add(new Node(x,y,'R',0));
-			chk[x][y] = 0;
 		}
-		for(int i=0; i<n; i++) {
-			for(int j=0; j<m; j++) {
-				System.out.print(copyMap[i][j] + " ");
-			}System.out.println();
-		}System.out.println();
+//		for(int i=0; i<n; i++) {
+//			for(int j=0; j<m; j++) {
+//				System.out.print(copyMap[i][j] + " ");
+//			}System.out.println();
+//		}System.out.println();
 		
 		Node poll;
 		int i,j,nx,ny,depth;
@@ -133,6 +129,7 @@ public class Main18809 {
 			j = poll.y;
 			color = poll.color;
 			depth = poll.depth;
+			if(copyMap[i][j]==9) continue;
 			for(int k=0; k<4; k++) {
 				nx = i + dir[k][0];
 				ny = j + dir[k][1];
@@ -163,18 +160,25 @@ public class Main18809 {
 				}
 			}
 			
-			int cou = 0;
-			for(int w=0; w<n; w++) {
-				for(int e=0; e<m; e++) {
-					if(copyMap[w][e]==9) {
-						cou++;
-					}
+		}
+		int cou = 0;
+		for(int w=0; w<n; w++) {
+			for(int e=0; e<m; e++) {
+				if(copyMap[w][e]==9) {
+					cou++;
 				}
 			}
-			if(cou>result) {
-				result = cou;
-			}
 		}
+		if(cou>result) {
+			result = cou;
+		}
+		
+//		for(int ii=0; ii<n; ii++) {
+//			for(int jj=0; jj<m; jj++) {
+//				System.out.print(copyMap[ii][jj] + " ");
+//			}System.out.println();
+//		}System.out.println(result);
+		
 	}
 	
 	public static void copy() {
