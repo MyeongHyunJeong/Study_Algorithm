@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+	
+	public static int n;
+	public static int m;
+	public static String temp;
+	public static char[] num;
+	public static int result;
+	
+	public static void main(String[] args) throws Exception{
+		try {
+			System.setIn(new FileInputStream("input.txt"));
+			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+			StringTokenizer st = new StringTokenizer(br.readLine());
+			n = Integer.parseInt(st.nextToken());
+			m = Integer.parseInt(st.nextToken());
+			temp = br.readLine();
+			num = temp.toCharArray();
+			
+			result = Integer.MIN_VALUE;
+			String numTemp = "";
+			for(int i=0; i<=n-m; i++) {
+				numTemp = temp.substring(i, i+m);
+				if(result<Integer.parseInt(numTemp)) {
+					result = Integer.parseInt(numTemp);
+				}
+			}
+			
+			System.out.println(result);
+			
+			br.close();
+			
+		}catch (Exception e) {
+			return;
+		}
+		
+	}
+	
+	public static int getResult(int n, int m, String temp, char[] num) {
+//		System.out.println(result);
+		return result;
+	}
+
+}

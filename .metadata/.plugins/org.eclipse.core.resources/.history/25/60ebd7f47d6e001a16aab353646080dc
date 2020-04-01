@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class Main9466 {
+
+	public static int testCase;
+	public static int n;
+	public static int[] map;
+	public static boolean[] chk;
+	public static int student;
+	public static boolean flag;
+	public static int result;
+	
+	public static void main(String[] args) throws Exception {
+		System.setIn(new FileInputStream("input9466.txt"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		
+		 testCase = Integer.parseInt(br.readLine());
+		 for(int t=0; t<testCase; t++) {
+			 result = 0;
+			 n = Integer.parseInt(br.readLine());
+			 chk = new boolean[n];
+			 map = new int[n];
+			 st = new StringTokenizer(br.readLine());
+			 for(int i=0; i<n; i++) {
+				 map[i] = Integer.parseInt(st.nextToken())-1;
+			 }
+			 
+			 for(int i=0; i<n; i++) {
+				 if(!chk[i]) {
+					 flag = false;
+					 student = i;
+					 makeGroup(i,0);
+				 }
+			 }
+			 
+		 }
+		
+		br.close();
+	}
+	
+	public static void makeGroup(int idx, int depth) {
+		if(depth>n) {
+			return;
+		}
+		if(student==map[idx]) {
+			flag = true;
+			return;
+		}
+		makeGroup(map[idx], depth+1);
+	}
+	
+
+}
