@@ -12,7 +12,6 @@ public class Main9466_2 {
 	public static int n;
 	public static int[] map;
 	public static boolean[] done;
-	public static boolean[] chk;
 	public static boolean[] resultChk;
 	public static int result;
 
@@ -34,8 +33,7 @@ public class Main9466_2 {
 			resultChk = new boolean[n];
 			result = 0;
 			for(int i=0; i<n; i++) {
-				if(!done[map[i]]) {
-					chk = new boolean[n];
+				if(!done[i]) {
 					getResult(i);
 				}
 //				System.out.println("DONE");
@@ -64,7 +62,7 @@ public class Main9466_2 {
 				done[next] = true;
 			}
 			else {
-				if(resultChk[next]) return;
+				if(resultChk[next]) continue;
 				for(int i=next; !resultChk[i]; i=map[i]) {
 					resultChk[i] = true;
 					result++;
@@ -73,6 +71,7 @@ public class Main9466_2 {
 //				System.out.println(Arrays.toString(resultChk));
 			}
 		}
+		for(int i=start; !resultChk[i]; i=map[i]) resultChk[i] = true;
 	}
 
 }
