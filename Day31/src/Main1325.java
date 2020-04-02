@@ -1,7 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
@@ -11,7 +11,7 @@ public class Main1325 {
 	public static int m;
 	public static int[] dp;
 	public static boolean[] chk;
-	public static ArrayList<Integer>[] map;
+	public static HashSet<Integer>[] map;
 	public static int max = Integer.MIN_VALUE;
 	
 	public static void main(String[] args) throws Exception{
@@ -21,9 +21,9 @@ public class Main1325 {
 		n = Integer.parseInt(st.nextToken());
 		m = Integer.parseInt(st.nextToken());
 		
-		map = new ArrayList[n];
+		map = new HashSet[n];
 		for(int i=0; i<n; i++) {
-			map[i] = new ArrayList<Integer>();
+			map[i] = new HashSet<Integer>();
 		}
 		int x,y;
 		for(int i=0; i<m; i++) {
@@ -50,7 +50,6 @@ public class Main1325 {
 	public static void getResult(int idx) {
 		if(chk[idx]) return;
 		if(map[idx].size()==0) {
-			dp[idx] = 0;
 			chk[idx] = true;
 			return;
 		}
@@ -60,7 +59,7 @@ public class Main1325 {
 		while(it.hasNext()) {
 			next = it.next();
 			getResult(next);
-			map[idx].addAll(map[next]);
+			if(map[next].size()!=0) map[idx].addAll(map[next]);
 		}
 		dp[idx] = map[idx].size();
 		if(dp[idx]>max) max = dp[idx];
