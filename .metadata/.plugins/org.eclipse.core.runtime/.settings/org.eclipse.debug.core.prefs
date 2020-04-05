@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="dir"/>\r\n<expression enabled\="true" text\="x"/>\r\n<expression enabled\="true" text\="y"/>\r\n<expression enabled\="true" text\="count"/>\r\n<expression enabled\="true" text\="go"/>\r\n<expression enabled\="true" text\="temp"/>\r\n</watchExpressions>\r\n
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n<expression enabled\="true" text\="count"/>\r\n<expression enabled\="true" text\="plus.size()"/>\r\n<expression enabled\="true" text\="minus.size()"/>\r\n<expression enabled\="true" text\="map[a]"/>\r\n</watchExpressions>\r\n
