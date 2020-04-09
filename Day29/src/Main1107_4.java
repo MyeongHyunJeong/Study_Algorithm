@@ -57,9 +57,7 @@ public class Main1107_4 {
 	}
 	
 	public static void getResult(int idx) {
-//		System.out.println(r);
 		if(idx==r) {
-//			System.out.println(Arrays.toString(temp));
 			String ch = "";
 			for(int i=0; i<r; i++) {
 				ch += temp[i];
