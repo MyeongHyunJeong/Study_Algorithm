@@ -19,21 +19,21 @@ public class Main3425_2 {
 		String tempIns="";
 		while(true) {
 			tempIns = br.readLine();
-			if(tempIns.equals("QUIT")) break;	//QUITÀÏ °æ¿ì ½Ã½ºÅÛ ³¡
-			if(tempIns.equals("END")) {		//¸í·É¾î ÀÔ·ÂÀÌ ³¡³¯ °æ¿ì
+			if(tempIns.equals("QUIT")) break;	//QUITï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½
+			if(tempIns.equals("END")) {		//ï¿½ï¿½É¾ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 				int n = Integer.parseInt(br.readLine());
-				for(int i=0; i<n; i++) {	//ÀÔ·Â ÇÏ³ªÇÏ³ª¾¿ ¼öÇà
-					getResult(Integer.parseInt(br.readLine()));
+				for(int i=0; i<n; i++) {	//ï¿½Ô·ï¿½ ï¿½Ï³ï¿½ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+					getResult(Long.parseLong(br.readLine()));
 				}
 				System.out.println();
-			}else {		//¸í·É¾î ÀÔ·Â
+			}else {		//ï¿½ï¿½É¾ï¿½ ï¿½Ô·ï¿½
 				if(tempIns.equals("")) ins.clear();
 				else {
 					st = new StringTokenizer(tempIns);
 					if(st.nextToken().equals("NUM")) {
-						ins.add(new Instruction("NUM", Integer.parseInt(st.nextToken())));
+						ins.add(new Instruction("NUM", Long.parseLong(st.nextToken())));
 					}else {
-						ins.add(new Instruction(tempIns, 0));
+						ins.add(new Instruction(tempIns));
 					}
 				}
 			}
@@ -42,81 +42,81 @@ public class Main3425_2 {
 		
 	}
 	
-	public static void getResult(int inputNum) {
-		Stack<Integer> stack = new Stack<Integer>();
+	public static void getResult(Long inputNum) {
+		Stack<Long> stack = new Stack<Long>();
 		stack.add(inputNum);
 		boolean chkError = false;
 		
 		Iterator<Instruction> it;
 		it = ins.iterator();
-		while(it.hasNext()) {	//¸í·É¾î ÇÏ³ª¾¿ ¼öÇà
+		while(it.hasNext()) {	//ï¿½ï¿½É¾ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			Instruction nins;
 			nins = it.next();
 //			System.out.println(nins.ins + " " + nins.num);
 			
-			if(nins.ins.equals("NUM")) {	//¼ýÀÚ Ãß°¡
+			if(nins.ins.equals("NUM")) {	//ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 				stack.add(nins.num);
-			}else if(nins.ins.equals("POP")) {	//Á© À§ÀÇ ¼ýÀÚ Á¦°Å
+			}else if(nins.ins.equals("POP")) {	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				stack.pop();
-			}else if(nins.ins.equals("INV")) {	//Á© À§ÀÇ ¼ýÀÚ ºÎÈ£ ¼öÁ¤
+			}else if(nins.ins.equals("INV")) {	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½ï¿½
 				stack.add(-stack.pop());
-			}else if(nins.ins.equals("DUP")) {	//Á© À§ÀÇ ¼ýÀÚ ÇÑ¹ø´õ Ãß°¡
+			}else if(nins.ins.equals("DUP")) {	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 				stack.add(stack.peek());
-			}else if(nins.ins.equals("SWP")) {	//¼ýÀÚ À§Ä¡ ¼öÁ¤
+			}else if(nins.ins.equals("SWP")) {	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
 				if(stack.size()<2) chkError = true;
 				else {
-					int tempA = stack.pop();
-					int tempB = stack.pop();
+					Long tempA = stack.pop();
+					Long tempB = stack.pop();
 					stack.add(tempA);
 					stack.add(tempB);
 				}
-			}else if(nins.ins.equals("ADD")) {	//¼ýÀÚ ´õÇÏ±â
+			}else if(nins.ins.equals("ADD")) {	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
 				if(stack.size()<2) chkError = true;
 				else {
-					int tempA = stack.pop();
-					int tempB = stack.pop();
-					int add = tempA + tempB;
+					Long tempA = stack.pop();
+					Long tempB = stack.pop();
+					Long add = tempA + tempB;
 					if(Math.abs(add)>1000000000) chkError = true;
 					else stack.add(add);
 				}
-			}else if(nins.ins.equals("SUB")) {	//¼ýÀÚ »©±â
+			}else if(nins.ins.equals("SUB")) {	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				if(stack.size()<2) chkError = true;
 				else {
-					int tempA = stack.pop();
-					int tempB = stack.pop();
-					int sub = tempB-tempA;
+					Long tempA = stack.pop();
+					Long tempB = stack.pop();
+					Long sub = tempB-tempA;
 					if(Math.abs(sub)>1000000000) chkError = true;
 					else stack.add(sub);
 				}
-			}else if(nins.ins.equals("MUL")) {	//Á© À§ÀÇ ¼ýÀÚ ÇÑ¹ø´õ Ãß°¡
+			}else if(nins.ins.equals("MUL")) {	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 				if(stack.size()<2) chkError = true;
 				else {
-					int tempA = stack.pop();
-					int tempB = stack.pop();
-					int mul = tempA * tempB;
+					Long tempA = stack.pop();
+					Long tempB = stack.pop();
+					Long mul = tempA * tempB;
 					if(Math.abs(mul)>1000000000) chkError = true;
 					else stack.add(mul);
 				}
-			}else if(nins.ins.equals("DIV")) {	//¼ýÀÚ °öÇÏ±â
+			}else if(nins.ins.equals("DIV")) {	//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
 				if(stack.size()<2) chkError = true;
 				else {
-					int tempA = stack.pop();
-					int tempB = stack.pop();
+					Long tempA = stack.pop();
+					Long tempB = stack.pop();
 					if(tempA==0) chkError = true;
 					else {
-						int div = Math.abs(tempB) / Math.abs(tempA);
+						Long div = Math.abs(tempB) / Math.abs(tempA);
 						if(tempA*tempB<0) div = -div;
 						stack.add(div);
 					}
 				}
-			}else if(nins.ins.equals("MOD")) {	//Á© À§ÀÇ ¼ýÀÚ ÇÑ¹ø´õ Ãß°¡
+			}else if(nins.ins.equals("MOD")) {	//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 				if(stack.size()<2) chkError = true;
 				else {
-					int tempA = stack.pop();
-					int tempB = stack.pop();
+					Long tempA = stack.pop();
+					Long tempB = stack.pop();
 					if(tempA==0) chkError = true;
 					else {
-						int mod = Math.abs(tempB) % Math.abs(tempA);
+						Long mod = Math.abs(tempB) % Math.abs(tempA);
 						if(tempB<0) mod = -mod;
 						stack.add(mod);
 					}
@@ -138,8 +138,11 @@ public class Main3425_2 {
 	
 	public static class Instruction {
 		String ins;
-		int num;
-		public Instruction(String ins, int num) {
+		Long num;
+		public Instruction(String ins) {
+			this.ins = ins;
+		}
+		public Instruction(String ins, Long num) {
 			this.ins = ins;
 			this.num = num;
 		}
