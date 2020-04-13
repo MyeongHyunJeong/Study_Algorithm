@@ -43,6 +43,10 @@ public class Main3425_3 {
 		
 		for(Instruction i : ins) {			
 			if(i.ins.equals("NUM")) {
+				if(i.num>1000000000) {
+					System.out.println("ERROR");
+					return;
+				}
 				stack.add(i.num);
 			}else if(i.ins.equals("POP")) {
 				if(stack.size()==0) {
@@ -122,8 +126,8 @@ public class Main3425_3 {
 						System.out.println("ERROR");
 						return;
 					}else {
-						if(a*b<0) stack.add(Math.abs(b/a));
-						else stack.add(-Math.abs(b/a));
+						if(a*b<0) stack.add(-Math.abs(b/a));
+						else stack.add(Math.abs(b/a));
 					}
 				}
 			}else if(i.ins.equals("MOD")) {
@@ -137,8 +141,8 @@ public class Main3425_3 {
 						System.out.println("ERROR");
 						return;
 					}else {
-						if(b<0) stack.add(-Math.abs(b/a));
-						else stack.add(Math.abs(b/a));
+						if(b<0) stack.add(-Math.abs(b%a));
+						else stack.add(Math.abs(b%a));
 					}
 				}
 			}else {
