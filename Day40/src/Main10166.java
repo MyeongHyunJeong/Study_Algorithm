@@ -8,7 +8,6 @@ public class Main10166 {
 
 	public static int d1;
 	public static int d2;
-	public static ArrayList<Float> arr;
 	
 	public static void main(String[] args) throws Exception{
 		System.setIn(new FileInputStream("input10166.txt"));
@@ -18,31 +17,27 @@ public class Main10166 {
 		d1 = Integer.parseInt(st.nextToken());
 		d2 = Integer.parseInt(st.nextToken());
 		
-		arr = new ArrayList<Float>();
-		
-		int d = 0;
-		float degree = 360;
-		float seat = 0;
+		float cal;
+		ArrayList<Float> arr = new ArrayList<Float>();
 		boolean flag = false;
-
 		for(int i=d1; i<=d2; i++) {
-			d = i;
-			
-			for(int j=0; j<d; j++) {
+			for(int j=1; j<i; j++) {
 				flag = false;
-				seat = degree / d * j;
+				cal = (float)360 / i * j;
 				for(Float f : arr) {
-					if(f==seat) {
+					if(f==cal) {
 						flag = true;
 						break;
 					}
-					if(f>seat) break;
 				}
-				if(!flag) arr.add(seat);
+				if(!flag) {
+					arr.add(cal);
+				}
 			}
 		}
 		
-		System.out.println(arr.size());
+		System.out.println(arr.size()+1);
+		
 		
 		br.close();
 	}
