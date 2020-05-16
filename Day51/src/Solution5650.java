@@ -18,6 +18,9 @@ public class Solution5650 {
 	public static boolean[] chkHole;
 	public static int score;
 	public static int maxScore = Integer.MIN_VALUE;
+	public static int startX;
+	public static int startY;
+	public static int count;
 
 	public static void main(String[] args) throws Exception{
 		System.setIn(new FileInputStream("input5650.txt"));
@@ -45,24 +48,30 @@ public class Solution5650 {
 					}
 				}
 			}
-			System.out.println(Arrays.deepToString(map));
+//			System.out.println(Arrays.deepToString(map));
 
 			for(int i=0; i<n; i++) {
 				for(int j=0; j<n; j++) {
 					if(map[i][j]==0) {
+						startX = i;
+						startY = j;
+						count = 0;
 						//0:상,		1:하,	2:좌,	3:우
 						chk = new boolean[n][n][4];
 						ball = new Ball(i,j,0);
 						score = 0;
 						move();
+						count = 0;
 						chk = new boolean[n][n][4];
 						ball = new Ball(i,j,1);
 						score = 0;
 						move();
+						count = 0;
 						chk = new boolean[n][n][4];
 						ball = new Ball(i,j,2);
 						score = 0;
 						move();
+						count = 0;
 						chk = new boolean[n][n][4];
 						ball = new Ball(i,j,3);
 						score = 0;
@@ -70,7 +79,7 @@ public class Solution5650 {
 					}
 				}
 			}
-			System.out.println(maxScore);
+			System.out.println("#" + (t+1) + " " + maxScore);
 
 		}
 
@@ -79,57 +88,55 @@ public class Solution5650 {
 
 	public static void move() {
 		if(map[ball.x][ball.y]==-1) {
-//			System.out.println(score);
-			if(score>maxScore) {
-				maxScore = score;
-			}
+			if(score>maxScore) maxScore = score;
 			return;
 		}
-		if(chk[ball.x][ball.y][ball.direction]) {
+		if(ball.x==startX && ball.y==startY && count!=0) {
+			if(score>maxScore) maxScore = score;
 			return;
 		}
+		if(chk[ball.x][ball.y][ball.direction]) return;
 		
 		chk[ball.x][ball.y][ball.direction] = true;
-		int x = ball.x + dir[ball.direction][0];
-		int y = ball.y + dir[ball.direction][1];
-		if(x>-1 && y>-1 && x<n && y<n) {
-			if(map[x][y]>0 && map[x][y]<6) {
+		int nx = ball.x + dir[ball.direction][0];
+		int ny = ball.y + dir[ball.direction][1];
+		
+		if(nx>-1 && ny>-1 && nx<n && ny<n) {
+			if(map[nx][ny]==-1 || map[nx][ny]==0) {
+				ball.x = nx;
+				ball.y = ny;
+			}else if(map[nx][ny]>0 && map[nx][ny]<6) {
+				selectDirection(nx,ny);
+				ball.x = nx;
+				ball.y = ny;
 				score++;
-				chk[x][y][ball.direction] = true;
-				ball.x = x;	
-				ball.y = y;
-				selectDirection();
-			}else if(map[x][y]>5) {
+			}else if(map[nx][ny]>5) {
 				for(int i=0; i<2; i++) {
-					if(holes[map[x][y]-6][i].x!=x && holes[map[x][y]-6][i].y!=y) {
-						chk[x][y][ball.direction] = true;
-						ball.x = holes[map[x][y]-6][i].x;
-						ball.y = holes[map[x][y]-6][i].y;
-						break;
+					if(holes[map[nx][ny]-6][i].x!=nx && holes[map[nx][ny]-6][i].y!=ny) {
+						ball.x = holes[map[nx][ny]-6][i].x;
+						ball.y = holes[map[nx][ny]-6][i].y;
 					}
 				}
-			}else {
-				ball.x = x;
-				ball.y = y;
 			}
 		}else {
 			score++;
 			if(ball.direction==0) {
-				ball.direction=1;
+				ball.direction = 1;
 			}else if(ball.direction==1) {
-				ball.direction=0;
+				ball.direction = 0;
 			}else if(ball.direction==2) {
-				ball.direction=3;
-			}else {
-				ball.direction=2;
+				ball.direction = 3;
+			}else if(ball.direction==3) {
+				ball.direction = 2;
 			}
 		}
 		
+		count++;
 		move();
 	}
 
-	public static void selectDirection() {
-		if(map[ball.x][ball.y]==1) {
+	public static void selectDirection(int x, int y) {
+		if(map[x][y]==1) {
 			if(ball.direction==0) {
 				ball.direction=1;
 			}else if(ball.direction==1) {
@@ -139,7 +146,7 @@ public class Solution5650 {
 			}else {
 				ball.direction=2;
 			}
-		}else if(map[ball.x][ball.y]==2) {
+		}else if(map[x][y]==2) {
 			if(ball.direction==0) {
 				ball.direction=3;
 			}else if(ball.direction==1) {
@@ -149,7 +156,7 @@ public class Solution5650 {
 			}else {
 				ball.direction=2;
 			}
-		}else if(map[ball.x][ball.y]==3) {
+		}else if(map[x][y]==3) {
 			if(ball.direction==0) {
 				ball.direction=2;
 			}else if(ball.direction==1) {
@@ -159,7 +166,7 @@ public class Solution5650 {
 			}else {
 				ball.direction=1;
 			}
-		}else if(map[ball.x][ball.y]==4) {
+		}else if(map[x][y]==4) {
 			if(ball.direction==0) {
 				ball.direction=1;
 			}else if(ball.direction==1) {
