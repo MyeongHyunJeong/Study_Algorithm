@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="ball."/>
+		<item key="selection" value="max"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="max1"/>
 			<item value="ball."/>
 			<item value="[3]"/>
 			<item value="]"/>
@@ -13,9 +14,9 @@
 			<item value="HashSet"/>
 			<item value="5457"/>
 			<item value="Bridge"/>
-			<item value="␣1"/>
 		</list>
 		<list key="replacehistory">
+			<item value="max"/>
 			<item value="[i]"/>
 			<item value="}"/>
 			<item value="inputString.charAt(i)"/>
@@ -23,7 +24,6 @@
 			<item value="Node"/>
 			<item value="b"/>
 			<item value="red"/>
-			<item value="nt"/>
 		</list>
 	</section>
 </section>
