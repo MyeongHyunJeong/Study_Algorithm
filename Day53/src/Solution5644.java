@@ -88,12 +88,16 @@ public class Solution5644 {
 			}else {
 				max = abc.get(0).p + bbc.get(0).p;
 			}
-		}else if(abc.size()==0 && bbc.size()==1) {
-			max = bbc.get(0).p;
-		}else if(abc.size()==1 && bbc.size()==0) {
-			max = abc.get(0).p;
 		}else if(abc.size()==0 && bbc.size()==0) {
 			max = 0;
+		}else if(bbc.size()==0) {
+			for(int i=0; i<abc.size(); i++) {
+				if(max<abc.get(i).p) max = abc.get(i).p;
+			}
+		}else if(abc.size()==0) {
+			for(int i=0; i<bbc.size(); i++) {
+				if(max<bbc.get(i).p) max = bbc.get(i).p; 
+			}
 		}else {
 			for(int i=0; i<abc.size(); i++) {
 				for(int j=0; j<bbc.size(); j++) {
@@ -112,14 +116,15 @@ public class Solution5644 {
 		charge += max;
 		abc.clear();
 		bbc.clear();
-		System.out.println("T:0 -> " + charge);
+//		System.out.println("T:0 -> " + charge);
 
 		for(int t=0; t<m; t++) {
 			A.x = A.x + dir[a[t]][0];
 			A.y = A.y + dir[a[t]][1];
 			B.x = B.x + dir[b[t]][0];
 			B.y = B.y + dir[b[t]][1];
-
+//			System.out.println("A : " + A.x + " " + A.y);
+//			System.out.println("B : " + B.x + " " + B.y);
 			max = 0;
 			for(int i=0; i<n; i++) {
 				if(map[A.x][A.y][i]) {
@@ -136,12 +141,16 @@ public class Solution5644 {
 				}else {
 					max = abc.get(0).p + bbc.get(0).p;
 				}
-			}else if(abc.size()==0 && bbc.size()==1) {
-				max = bbc.get(0).p;
-			}else if(abc.size()==1 && bbc.size()==0) {
-				max = abc.get(0).p;
 			}else if(abc.size()==0 && bbc.size()==0) {
 				max = 0;
+			}else if(bbc.size()==0) {
+				for(int i=0; i<abc.size(); i++) {
+					if(max<abc.get(i).p) max = abc.get(i).p;
+				}
+			}else if(abc.size()==0) {
+				for(int i=0; i<bbc.size(); i++) {
+					if(max<bbc.get(i).p) max = bbc.get(i).p; 
+				}
 			}else {
 				for(int i=0; i<abc.size(); i++) {
 					for(int j=0; j<bbc.size(); j++) {
@@ -160,7 +169,8 @@ public class Solution5644 {
 			
 			
 			charge += max;
-			System.out.println("T:" + (t+1) + " -> " + charge);
+//			System.out.println("T:" + (t+1) + " -> " + charge);
+//			System.out.println();
 			abc.clear();
 			bbc.clear();
 		}
