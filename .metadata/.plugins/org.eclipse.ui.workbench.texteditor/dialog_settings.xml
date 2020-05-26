@@ -6,6 +6,7 @@
 		<item key="wholeword" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="``"/>
 			<item value="max1"/>
 			<item value="ball."/>
 			<item value="[3]"/>
@@ -13,7 +14,6 @@
 			<item value="str[i]"/>
 			<item value="HashSet"/>
 			<item value="5457"/>
-			<item value="Bridge"/>
 		</list>
 		<list key="replacehistory">
 			<item value="max"/>
