@@ -20,13 +20,13 @@ public class Permutation {
 			count++;
 			return;
 		}
-		//		for(int i=0; i<n; i++) {	//	순열
-		//			if(!chk[i]) {
-		//				chk[i] = true;
-		//				temp[idx] = i;
-		//				permutation(n,r,idx+1,chk);
-		//			}
-		//		}
+				for(int i=0; i<n; i++) {	//	순열
+					if(!chk[i]) {
+						chk[i] = true;
+						temp[idx] = i;
+						permutation(n,r,idx+1,chk);
+					}
+				}
 //		for(int i=0; i<n; i++) {	//	중복순열
 //			temp[idx] = i;
 //			permutation(n,r,idx+1,chk);

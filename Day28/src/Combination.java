@@ -21,8 +21,8 @@ public class Combination {
 		}
 		if(depth==n) return;
 		temp[idx] = depth;
-		combi(n,r,idx+1, depth);	//조합 구할 때 추석
-//		combi(n,r,idx+1,depth+1);	//중복조합 구할 때 주석
+//		combi(n,r,idx+1, depth);	//조합 구할 때 추석
+		combi(n,r,idx+1,depth+1);	//중복조합 구할 때 주석
 		combi(n,r,idx,depth+1);
 	}
 
